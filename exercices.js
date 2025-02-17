@@ -60,8 +60,6 @@ const afficherRechercheArtefact = ({ artefact, epoque, success = true }) => {
  * Votre partie commence ici, la partie modifiable par vos soins
  */
 
-creerLesChoixEpoque(epoques);
-
 // Le téléporteur temporel
 const loader = document.querySelector(".voyage_en_cours");
 function voyagerTemps(destination, callback) {
@@ -157,4 +155,9 @@ function missionTemporelleComplexeV2() {
     .then(console.log("Collecter une épée romaine"));
 }
 
-missionTemporelleComplexeV2();
+// missionTemporelleComplexeV2();
+
+// La Mission Finale Asynchrone
+fetch("http://localhost:5500/data/epoques.json")
+  .then((res) => res.json())
+  .then((epoques) => creerLesChoixEpoque(epoques));
