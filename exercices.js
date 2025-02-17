@@ -47,7 +47,7 @@ formChoixEpoqueHtml.addEventListener("submit", (event) => {
 formRechercheArtefact.addEventListener("submit", (event) => {
   event.preventDefault();
   const artefact = new FormData(formRechercheArtefact).get("artefact");
-  quandRechercheArtefact(artefact);
+  collecterArtefact(artefact, afficherRechercheArtefact);
 });
 
 const afficherRechercheArtefact = ({ artefact, epoque, success = true }) => {
@@ -67,24 +67,34 @@ const loader = document.querySelector(".voyage_en_cours");
 function voyagerTemps(destination, callback) {
   loader.style.display = "block";
   afficherDestination("");
-  setTimeout(() => {
-    callback(destination);
-  }, generationNombreAleatoireEntre(1000, 3000));
+  setTimeout(() => callback(destination), generationNombreAleatoireEntre(1000, 3000));
 }
 
-// Fonction appelée plus haut quand le formulaire de voyage temporel est soumis
-// et qu'une époque de destination du voyage temporel a été choisi
 let nomEpoqueActuelle;
 function quandEpoqueChoisie(nomEpoque) {
   nomEpoqueActuelle = nomEpoque;
-  // Utilisation de votre fonction voyagerTemps
+
   voyagerTemps(nomEpoque, () => {
     loader.style.display = "none";
     afficherDestination(nomEpoque);
   });
+  return nomEpoqueActuelle;
 }
 
-// Fonction appelée plus haut quand le formulaire de recherche d'artefact est soumis
-function quandRechercheArtefact(artefact) {
-  // Utilisation de votre fonction collecterArtefact
+// La Collecte d'Artefact Mystère
+function collecterArtefact(nomArtefact, callback) {
+  const result = Math.random() * 100;
+  let isFound;
+  if (result >= 50) {
+    isFound = true;
+  } else {
+    isFound = false;
+  }
+  setTimeout(() => {
+    callback({
+      artefact: nomArtefact,
+      epoque: nomEpoqueActuelle,
+      success: isFound,
+    });
+  }, generationNombreAleatoireEntre(1000, 3000));
 }
