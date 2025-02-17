@@ -47,7 +47,7 @@ formChoixEpoqueHtml.addEventListener("submit", (event) => {
 formRechercheArtefact.addEventListener("submit", (event) => {
   event.preventDefault();
   const artefact = new FormData(formRechercheArtefact).get("artefact");
-  collecterArtefact(artefact, afficherRechercheArtefact);
+  collecterArtefactV2(artefact, afficherRechercheArtefact);
 });
 
 const afficherRechercheArtefact = ({ artefact, epoque, success = true }) => {
@@ -74,7 +74,7 @@ let nomEpoqueActuelle;
 function quandEpoqueChoisie(nomEpoque) {
   nomEpoqueActuelle = nomEpoque;
 
-  voyagerTemps(nomEpoque, () => {
+  voyagerTempsV2(nomEpoque, () => {
     loader.style.display = "none";
     afficherDestination(nomEpoque);
   });
@@ -115,4 +115,46 @@ function missionTemporelleComplexe() {
     }
   }
 }
-missionTemporelleComplexe();
+// missionTemporelleComplexe();
+
+// Je te promet des voyages temporels sans tracas !
+function voyagerTempsV2(destination, callback) {
+  loader.style.display = "block";
+  afficherDestination("");
+  new Promise((res, rej) => {
+    res(destination);
+    rej(err);
+  }).then(setTimeout(() => callback(destination), generationNombreAleatoireEntre(1000, 3000)));
+}
+
+function collecterArtefactV2(nomArtefact, callback) {
+  const result = Math.random() * 100;
+  let isFound;
+  if (result >= 50) {
+    isFound = true;
+  } else {
+    isFound = false;
+  }
+  new Promise((res, rej) => {
+    res();
+  }).then(
+    setTimeout(() => {
+      callback({
+        artefact: nomArtefact,
+        epoque: nomEpoqueActuelle,
+        success: isFound,
+      });
+    }, generationNombreAleatoireEntre(1000, 3000))
+  );
+}
+
+function missionTemporelleComplexeV2() {
+  new Promise((res, rej) => res())
+    .then(console.log("Voyager à l'époque médiévale"))
+    .then(console.log("Collecter une épée de chevalier"))
+    .then(console.log("Voyager à l'époque romaine"))
+    .then(console.log("Collecter un bouclier romain"))
+    .then(console.log("Collecter une épée romaine"));
+}
+
+missionTemporelleComplexeV2();
