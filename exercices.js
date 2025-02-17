@@ -98,3 +98,21 @@ function collecterArtefact(nomArtefact, callback) {
     });
   }, generationNombreAleatoireEntre(1000, 3000));
 }
+
+// La Mission Temporelle Complexe
+function missionTemporelleComplexe() {
+  console.log("Voyager à l'époque médiévale");
+  if (true) {
+    console.log("Collecter une épée de chevalier");
+    if (true) {
+      console.log("Voyager à l'époque romaine");
+      if (true) {
+        console.log("Collecter un bouclier romain");
+        if (true) {
+          console.log("Collecter une épée romaine");
+        }
+      }
+    }
+  }
+}
+missionTemporelleComplexe();
